@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org"
+>
+<head th:fragment="header">
+    <!-- Required meta tags -->
+    <style>
+        /* Sticky footer styles */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #0b5ed7;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            background-color: #0a53be;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .footer {
+            flex-shrink: 0;
+            background-color: #343a40; /* Set your desired background color */
+            color: white; /* Set your desired text color */
+            padding: 1rem;
+            margin-top: auto;
+            width: 100%;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Capstone Manager</title>
+</head>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container px-5">
+        <a class="navbar-brand" href="index.html">Capstone Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="useraccount-list">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">Project</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Professor</a></li>
+                <li class="nav-item"><a class="nav-link" href="pricing.html">Student</a></li>
+                <li class="nav-item"><a class="nav-link" href="faq.html">Schedule</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                        <li><a class="dropdown-item" th:href="@{useraccount/register}">Register</a></li>
+                        <li><a class="dropdown-item" href="blog-post.html">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<body layout:fragment="body"></body>
+<footer class="footer">
+    <div class="container px-5">
+        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+            <div class="col-auto"><div class="small m-0">Capstone Management System 2024</div></div>
+        </div>
+    </div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</html>
