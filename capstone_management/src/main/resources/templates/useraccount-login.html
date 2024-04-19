@@ -1,0 +1,64 @@
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section layout:fragment="body">
+<h2>Login</h2>
+<form id="loginForm" th:action="@{/useraccount/login}" method="post" th:object="${userAccount}">
+    <div>
+        <label for="role">Role:</label>
+        <select id="role" name="role" th:field="*{Role}" onchange="showFields()">
+            <option value="Admin">Admin</option>
+            <option value="Teaching Faculty">Teaching Faculty</option>
+            <option value="Student">Student</option>
+        </select>
+    </div>
+    <div id="trnField" style="display: none;">
+        <label for="trn">TRN:</label>
+        <input type="text" id="trn" name="trn" th:object="${trn}" th:field="*{trn}">
+    </div>
+    <div id="srnField" style="display: none;">
+        <label for="srn">SRN:</label>
+        <input type="text" id="srn" name="srn" th:object="${trn}" th:field="*{trn}">
+    </div>
+    <div id="nameField" style="display: none;">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" th:object="${userAccount}" th:field="*{Name}">
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" th:field="*{Password}">
+    </div>
+    <button type="submit">Login</button>
+</form>
+
+<script>
+    function showFields() {
+        var role = document.getElementById("role").value;
+        var trnField = document.getElementById("trnField");
+        var srnField = document.getElementById("srnField");
+        var nameField = document.getElementById("nameField");
+
+        if (role === "faculty") {
+            trnField.style.display = "block";
+            srnField.style.display = "none";
+            nameField.style.display = "none";
+        } else if (role === "student") {
+            trnField.style.display = "none";
+            srnField.style.display = "block";
+            nameField.style.display = "none";
+        } else if (role === "admin") {
+            trnField.style.display = "none";
+            srnField.style.display = "none";
+            nameField.style.display = "block";
+        }
+    }
+</script>
+</section>
+</body>
+</html>

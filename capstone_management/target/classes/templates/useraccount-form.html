@@ -1,0 +1,165 @@
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User registration</title>
+  <style>
+    .dropdown-arrow {
+      position: relative;
+    }
+
+    .dropdown-arrow::after {
+      content: '\25BC'; /* Unicode character for down arrow */
+      position: absolute;
+      top: 50%;
+      right: 10px; /* Adjust as needed */
+      transform: translateY(-50%);
+      pointer-events: none; /* Ensures the arrow doesn't interfere with the select */
+    }
+  </style>
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+  <!-- Page Content-->
+  <section layout:fragment="body" class="py-5">
+    <div class="container mt-5">
+      <h2>Registration Form</h2>
+      <form role="form" th:action="@{/useraccount/register}" method="post" th:object="${userAccount}">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" class="form-control" id="name" name="name" th:field="*{Name}" required>
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender:</label>
+          <select class="form-control" id="gender" name="gender" th:field="*{Gender}" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="role">Role:</label>
+          <div class="dropdown-arrow">
+            <select class="form-control" id="role" name="role" th:field="*{Role}" required
+                    onchange="updateFields()">
+              <option value="">Select Role</option>
+              <option value="Student">Student</option>
+              <option value="Admin">Admin</option>
+              <option value="Teaching Faculty">Teaching Faculty</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" id="password" name="password" th:field="*{Password}"
+                 required>
+        </div>
+        <div class="form-group">
+          <label for="department">Department:</label>
+          <div class="dropdown-arrow">
+            <select class="form-control" id="department" name="department" th:field="*{Department}"
+                    required>
+              <option value="CSE">CSE</option>
+              <option value="ECE">ECE</option>
+              <option value="IT Support">IT Support</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" id="srnField" style="display: none;">
+          <label for="srn">SRN:</label>
+          <input type="text" class="form-control" id="srn" name="srn" th:object="${student}"
+                 th:field="*{SRN}">
+        </div>
+        <div class="form-group" id="trnField" style="display: none;">
+          <label for="trn">TRN:</label>
+          <input type="text" class="form-control" id="trn" name="trn" th:object="${teacher}"
+                 th:field="*{TRN}">
+        </div>
+        <div class="form-group" id="ernField" style="display: none;">
+          <label for="ern">ERN:</label>
+          <input type="text" class="form-control" id="ern" name="ern">
+        </div>
+        <div class="form-group" id="cgpaField" style="display: none;">
+          <label for="cgpa">CGPA:</label>
+          <input type="number" step="0.01" class="form-control" id="cgpa" name="cgpa"
+                 th:object="${student}" th:field="*{cgpa}">
+        </div>
+        <div class="form-group" id="teamIdField" style="display: none;">
+          <label for="teamId">TeamID:</label>
+          <input type="text" class="form-control" id="teamId" name="teamId" th:object="${project}"
+                 th:field="*{teamID}">
+        </div>
+        <div class="form-group" id="professionalRoleField" style="display: none;">
+          <label for="professionalRole">Professional Role:</label>
+          <input type="text" class="form-control" id="professionalRole" name="professionalRole">
+        </div>
+        <div class="form-group" id="yearsOfExperienceField" style="display: none;">
+          <label for="yearsOfExperience">Years of Experience:</label>
+          <input type="number" class="form-control" id="yearsOfExperience" name="yearsOfExperience">
+        </div>
+        <div class="form-group" id="domainField" style="display: none;">
+          <label for="domain">Domain:</label>
+          <input type="text" class="form-control" id="domain" name="domain">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      function updateFields() {
+        var role = document.getElementById("role").value;
+        var srnField = document.getElementById("srnField");
+        var trnField = document.getElementById("trnField");
+        var ernField = document.getElementById("ernField");
+        var cgpaField = document.getElementById("cgpaField");
+        var teamIdField = document.getElementById("teamIdField");
+        var professionalRoleField = document.getElementById("professionalRoleField");
+        var yearsOfExperienceField = document.getElementById("yearsOfExperienceField");
+        var domainField = document.getElementById("domainField");
+
+        if (role === "Student") {
+          srnField.style.display = "block";
+          trnField.style.display = "none";
+          ernField.style.display = "none";
+          cgpaField.style.display = "block";
+          teamIdField.style.display = "block";
+          professionalRoleField.style.display = "none";
+          yearsOfExperienceField.style.display = "none";
+          domainField.style.display = "none";
+        } else if (role === "Teaching Faculty") {
+          srnField.style.display = "none";
+          trnField.style.display = "block";
+          ernField.style.display = "none";
+          cgpaField.style.display = "none";
+          teamIdField.style.display = "none";
+          professionalRoleField.style.display = "block";
+          yearsOfExperienceField.style.display = "block";
+          domainField.style.display = "block";
+        } else if (role === "Admin") {
+          srnField.style.display = "none";
+          trnField.style.display = "none";
+          ernField.style.display = "block";
+          cgpaField.style.display = "none";
+          teamIdField.style.display = "none";
+          professionalRoleField.style.display = "none";
+          yearsOfExperienceField.style.display = "none";
+          domainField.style.display = "none";
+        } else {
+          srnField.style.display = "none";
+          trnField.style.display = "none";
+          ernField.style.display = "none";
+          cgpaField.style.display = "none";
+          teamIdField.style.display = "none";
+          professionalRoleField.style.display = "none";
+          yearsOfExperienceField.style.display = "none";
+          domainField.style.display = "none";
+        }
+      }
+    </script>
+  </section>
+
+
+</main>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex flex-sm-grow-1">
+    <!-- Page Content-->
+    <section layout:fragment="body" class="py-5">
+        <div class="container flex flex-grow-1 px-5 my-5">
+            <div class="text-center mb-5">
+                <h3 class="fw-bolder">Current Users</h3>
+                <p class="lead fw-normal text-muted mb-0">Names</p>
+            </div>
+            <div th:each="userAccounts :${userAccounts}" class="row gx-5">
+                <a th:text="${userAccounts.name}"></a>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>
