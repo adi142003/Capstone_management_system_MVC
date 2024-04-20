@@ -17,8 +17,8 @@ import java.util.List;
 @Entity
 public class Panel {
     @Id
-    private int PanelNo;
-    private int PanelSize;
+    private int panelno;
+    private int panelsize;
 
     @OneToMany(mappedBy = "panel")
     private List<Teacher> teachers;

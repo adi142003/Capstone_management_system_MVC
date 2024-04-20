@@ -10,4 +10,5 @@ public interface UserAccountService {
     List<UserAccountDto> findAllUserAccounts();
     UserAccount saveUserAccount(UserAccount userAccount);
     UserAccount LoginAccount(UserAccount userAccount);
+    String GetPassword(String Name);
 }

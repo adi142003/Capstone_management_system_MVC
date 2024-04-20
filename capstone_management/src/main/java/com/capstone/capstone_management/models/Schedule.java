@@ -18,6 +18,6 @@ import java.util.Date;
 public class Schedule {
     @Id
     private int id;
-    private Date ReviewDate;
-    private Time ReviewSlot;
+    private Date reviewdate;
+    private Time reviewslot;
 }

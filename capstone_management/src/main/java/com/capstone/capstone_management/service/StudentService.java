@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 public interface StudentService {
     Student saveStudent(Student student);
     Project saveProject(Project project);
+
+    String GetStudentPassword(String srn);
 }

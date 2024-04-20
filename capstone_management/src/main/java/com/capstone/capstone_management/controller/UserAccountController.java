@@ -4,6 +4,7 @@ import com.capstone.capstone_management.models.*;
 import com.capstone.capstone_management.repository.ProjectRepository;
 import com.capstone.capstone_management.service.StudentService;
 import com.capstone.capstone_management.service.TeacherService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.Model;
 import com.capstone.capstone_management.dto.UserAccountDto;
 import com.capstone.capstone_management.service.UserAccountService;
@@ -13,23 +14,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Controller
 public class UserAccountController {
     private final ProjectRepository projectRepository;
+    private final HandlerExceptionResolver handlerExceptionResolver;
     private UserAccountService userAccountService;
     @Autowired
-    public UserAccountController(ProjectRepository projectRepository, UserAccountService userAccountService, StudentService studentService, TeacherService teacherService) {
+    public UserAccountController(ProjectRepository projectRepository, UserAccountService userAccountService, StudentService studentService, TeacherService teacherService, @Qualifier("handlerExceptionResolver") HandlerExceptionResolver handlerExceptionResolver) {
         this.projectRepository = projectRepository;
         this.userAccountService = userAccountService;
         this.studentService = studentService;
         this.teacherService = teacherService;
+        this.handlerExceptionResolver = handlerExceptionResolver;
     }
 
 
@@ -47,22 +52,57 @@ public class UserAccountController {
     @GetMapping("/useraccount/login")
     public String login(Model model) {
         UserAccount userAccount = new UserAccount();
-        String srn="";
-        String trn="";
         model.addAttribute("userAccount", userAccount);
-        model.addAttribute("srn",srn);
-        model.addAttribute("trn",trn);
+        model.addAttribute("srn",new Student());
+        model.addAttribute("trn",new Teacher());
         return "useraccount-login";
     }
 
     @PostMapping("/useraccount/login")
-    public String loginSubmit(@ModelAttribute("userAccount") UserAccount userAccount, @ModelAttribute String srn, @ModelAttribute String trn) {
+    public String loginSubmit(@ModelAttribute("userAccount") UserAccount userAccount, @ModelAttribute Student srn, @ModelAttribute Teacher trn) {
+        String pass;
         if(Objects.equals(userAccount.getRole(),"Teaching Faculty")) {
-            
+
+            try{
+                pass = teacherService.GetTeacherPassword(trn.getUseraccount().getUsn());
+            }catch (NoSuchElementException e){
+                System.out.println("No Record Found");
+                return "redirect:/useraccount/register";
+            }
+            if(Objects.equals(pass,userAccount.getPassword())) {
+                System.out.println("Success");
+            }
+            else{
+                System.out.println("Fail");
+            }
         } else if (Objects.equals(userAccount.getRole(),"Student")) {
-
+            System.out.println("enter");
+            try{
+                 pass = studentService.GetStudentPassword(srn.getUserAccount().getUsn());
+            }catch (NoSuchElementException e){
+                System.out.println("No Record Found");
+                return "redirect:/useraccount/register";
+            }
+            System.out.println("here");
+            if(Objects.equals(pass,userAccount.getPassword())) {
+                System.out.println("Success");
+            }
+            else{
+                System.out.println("Fail");
+            }
         }else {
-
+            try{
+                pass = userAccountService.GetPassword(userAccount.getUsn());
+            }catch (NoSuchElementException e){
+                System.out.println("No Record Found");
+                return "redirect:/useraccount/register";
+            }
+            if(Objects.equals(pass,userAccount.getPassword())) {
+                System.out.println("Success");
+            }
+            else{
+                System.out.println("Fail");
+            }
         }
         return "useraccount-list";
     }
@@ -84,24 +124,24 @@ public class UserAccountController {
         if (Objects.equals(createduser.getRole(), "Student")){
             student.setUserAccount(createduser);
             System.out.println("Entering if1");
-            if(projectRepository.existsByTeamID(project.getTeamID())){
+            if(projectRepository.existsByTeamid(project.getTeamid())){
                 student.setProject(project);
                 studentService.saveStudent(student);
                 return "redirect:/useraccount";
             }
             System.out.println("Entering if2");
             studentService.saveStudent(student);
-            String srns = student.getSRN();
+            String srns = userAccount.getUsn();
             sr = srns;
             System.out.println(sr);
 
             System.out.println("Entering if3");
-            if(!projectRepository.existsByTeamID(project.getTeamID())){
+            if(!projectRepository.existsByTeamid(project.getTeamid())){
 
                 return "redirect:/student/teamreg/"+sr;
             }
         } else if (Objects.equals(createduser.getRole(), "Teaching Faculty")) {
-            teacher.setUserAccount(createduser);
+            teacher.setUseraccount(createduser);
             teacherService.saveTeacher(teacher);
         }
         return "redirect:/useraccount";

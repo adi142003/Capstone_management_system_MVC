@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Student {
     @Id
-    private String SRN;
-    private Float cgpa;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     @OneToOne
     @JoinColumn(name = "user_id")
     private UserAccount userAccount;
 
+    private Float cgpa;
     @ManyToOne
     @JoinColumn(name = "team_id") // Foreign key column in Student table referencing Project
     private Project project;

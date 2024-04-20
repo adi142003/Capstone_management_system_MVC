@@ -14,14 +14,14 @@ import lombok.NoArgsConstructor;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ReviewID;
+    private int reviewid;
 
-    private String ReviewPhase;
-    private int Evalmark1;
-    private int Evalmark2;
-    private int Evalmark3;
-    private int Evalmark4;
-    private String ReviewComment;
+    private String reviewphase;
+    private int evalmark1;
+    private int evalmark2;
+    private int evalmark3;
+    private int evalmark4;
+    private String reviewcomment;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id") // Foreign key column in Review table referencing Teacher

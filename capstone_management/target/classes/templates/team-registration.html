@@ -12,7 +12,7 @@
 <form role="form" th:action="@{/student/teamreg/{srn}(srn=${srn})}" method="post" th:object="${project}">
     <div>
         <label for="teamId">Team ID:</label>
-        <input type="number" id="TeamID" name="TeamID" th:field="*{teamID}" required>
+        <input type="number" id="TeamID" name="TeamID" th:field="*{teamid}" required>
     </div>
     <div>
         <label for="domain">Domain:</label>
@@ -20,23 +20,23 @@
     </div>
     <div>
         <label for="projectYear">Project Year:</label>
-        <input type="number" id="projectYear" name="projectYear" th:field="*{ProjectYear}" required>
+        <input type="number" id="projectYear" name="projectYear" th:field="*{projectyear}" required>
     </div>
     <div>
         <label for="projectTitle">Project Title:</label>
-        <input type="text" id="projectTitle" name="projectTitle" th:field="*{ProjectTitle}" required>
+        <input type="text" id="projectTitle" name="projectTitle" th:field="*{projecttitle}" required>
     </div>
     <div>
         <label for="projectStatement">Project Statement:</label>
-        <textarea id="projectStatement" name="projectStatement" th:field="*{ProjectStatement}" required></textarea>
+        <textarea id="projectStatement" name="projectStatement" th:field="*{projectstatement}" required></textarea>
     </div>
     <div>
         <label for="projectDescription">Project Description:</label>
-        <textarea id="projectDescription" name="projectDescription" th:field="*{ProjectDescription}" required></textarea>
+        <textarea id="projectDescription" name="projectDescription" th:field="*{projectdescription}" required></textarea>
     </div>
     <div>
         <label for="teacherTRN">Teacher TRN:</label>
-        <input type="text" id="teacherTRN" name="teacherTRN" th:object="${teacher}" th:field="*{TRN}" required>
+        <input type="text" id="teacherTRN" name="teacherTRN" th:object="${teacher}" th:field="*{usn}" required>
     </div>
     <button type="submit">Submit</button>
 </form>

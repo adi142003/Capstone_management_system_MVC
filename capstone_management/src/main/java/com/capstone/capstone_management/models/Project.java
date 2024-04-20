@@ -18,17 +18,17 @@ import java.util.List;
 public class Project {
 //    mentor details here
     @Id
-    private int teamID;
-    private String Domain;
-    private Year ProjectYear;
-    private String ProjectTitle;
-    private String ProjectStatement;
-    private String ProjectDescription;
+    private int teamid;
+    private String domain;
+    private Year projectyear;
+    private String projecttitle;
+    private String projectstatement;
+    private String projectdescription;
 //    documents handle
     @OneToMany(mappedBy = "project")
     private List<Student> students = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 

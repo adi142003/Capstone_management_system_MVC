@@ -29,11 +29,11 @@
       <form role="form" th:action="@{/useraccount/register}" method="post" th:object="${userAccount}">
         <div class="form-group">
           <label for="name">Name:</label>
-          <input type="text" class="form-control" id="name" name="name" th:field="*{Name}" required>
+          <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required>
         </div>
         <div class="form-group">
           <label for="gender">Gender:</label>
-          <select class="form-control" id="gender" name="gender" th:field="*{Gender}" required>
+          <select class="form-control" id="gender" name="gender" th:field="*{gender}" required>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
@@ -41,7 +41,7 @@
         <div class="form-group">
           <label for="role">Role:</label>
           <div class="dropdown-arrow">
-            <select class="form-control" id="role" name="role" th:field="*{Role}" required
+            <select class="form-control" id="role" name="role" th:field="*{role}" required
                     onchange="updateFields()">
               <option value="">Select Role</option>
               <option value="Student">Student</option>
@@ -52,13 +52,13 @@
         </div>
         <div class="form-group">
           <label for="password">Password:</label>
-          <input type="password" class="form-control" id="password" name="password" th:field="*{Password}"
+          <input type="password" class="form-control" id="password" name="password" th:field="*{password}"
                  required>
         </div>
         <div class="form-group">
           <label for="department">Department:</label>
           <div class="dropdown-arrow">
-            <select class="form-control" id="department" name="department" th:field="*{Department}"
+            <select class="form-control" id="department" name="department" th:field="*{department}"
                     required>
               <option value="CSE">CSE</option>
               <option value="ECE">ECE</option>
@@ -66,19 +66,10 @@
             </select>
           </div>
         </div>
-        <div class="form-group" id="srnField" style="display: none;">
-          <label for="srn">SRN:</label>
-          <input type="text" class="form-control" id="srn" name="srn" th:object="${student}"
-                 th:field="*{SRN}">
-        </div>
-        <div class="form-group" id="trnField" style="display: none;">
-          <label for="trn">TRN:</label>
-          <input type="text" class="form-control" id="trn" name="trn" th:object="${teacher}"
-                 th:field="*{TRN}">
-        </div>
-        <div class="form-group" id="ernField" style="display: none;">
-          <label for="ern">ERN:</label>
-          <input type="text" class="form-control" id="ern" name="ern">
+        <div class="form-group">
+          <label id="dynamicLabel" for="identification">Identification:</label>
+          <input type="text" class="form-control" id="identification" name="identification" th:object="${userAccount}"
+                 th:field="*{usn}">
         </div>
         <div class="form-group" id="cgpaField" style="display: none;">
           <label for="cgpa">CGPA:</label>
@@ -88,19 +79,22 @@
         <div class="form-group" id="teamIdField" style="display: none;">
           <label for="teamId">TeamID:</label>
           <input type="text" class="form-control" id="teamId" name="teamId" th:object="${project}"
-                 th:field="*{teamID}">
+                 th:field="*{teamid}">
         </div>
         <div class="form-group" id="professionalRoleField" style="display: none;">
           <label for="professionalRole">Professional Role:</label>
-          <input type="text" class="form-control" id="professionalRole" name="professionalRole">
+          <input type="text" class="form-control" id="professionalRole" name="professionalrole" th:object="${teacher}"
+                 th:field="*{professionalrole}">
         </div>
         <div class="form-group" id="yearsOfExperienceField" style="display: none;">
           <label for="yearsOfExperience">Years of Experience:</label>
-          <input type="number" class="form-control" id="yearsOfExperience" name="yearsOfExperience">
+          <input type="number" class="form-control" id="yearsOfExperience" name="yearsOfexperience" th:object="${teacher}"
+                 th:field="*{yearsofexp}">
         </div>
         <div class="form-group" id="domainField" style="display: none;">
           <label for="domain">Domain:</label>
-          <input type="text" class="form-control" id="domain" name="domain">
+          <input type="text" class="form-control" id="domain" name="domain" th:object="${teacher}"
+                 th:field="*{domain}">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
@@ -108,47 +102,42 @@
 
     <script>
       function updateFields() {
-        var role = document.getElementById("role").value;
-        var srnField = document.getElementById("srnField");
-        var trnField = document.getElementById("trnField");
-        var ernField = document.getElementById("ernField");
         var cgpaField = document.getElementById("cgpaField");
         var teamIdField = document.getElementById("teamIdField");
         var professionalRoleField = document.getElementById("professionalRoleField");
         var yearsOfExperienceField = document.getElementById("yearsOfExperienceField");
         var domainField = document.getElementById("domainField");
 
+        var role = document.getElementById("role").value;
+        var dynamicLabel = document.getElementById("dynamicLabel");
+
         if (role === "Student") {
-          srnField.style.display = "block";
-          trnField.style.display = "none";
-          ernField.style.display = "none";
+          dynamicLabel.textContent = "SRN:";
+        } else if (role === "Teaching Faculty") {
+          dynamicLabel.textContent = "TRN:";
+        } else if (role === "Admin") {
+          dynamicLabel.textContent = "ERN:";
+        }
+
+        if (role === "Student") {
           cgpaField.style.display = "block";
           teamIdField.style.display = "block";
           professionalRoleField.style.display = "none";
           yearsOfExperienceField.style.display = "none";
           domainField.style.display = "none";
         } else if (role === "Teaching Faculty") {
-          srnField.style.display = "none";
-          trnField.style.display = "block";
-          ernField.style.display = "none";
           cgpaField.style.display = "none";
           teamIdField.style.display = "none";
           professionalRoleField.style.display = "block";
           yearsOfExperienceField.style.display = "block";
           domainField.style.display = "block";
         } else if (role === "Admin") {
-          srnField.style.display = "none";
-          trnField.style.display = "none";
-          ernField.style.display = "block";
           cgpaField.style.display = "none";
           teamIdField.style.display = "none";
           professionalRoleField.style.display = "none";
           yearsOfExperienceField.style.display = "none";
           domainField.style.display = "none";
         } else {
-          srnField.style.display = "none";
-          trnField.style.display = "none";
-          ernField.style.display = "none";
           cgpaField.style.display = "none";
           teamIdField.style.display = "none";
           professionalRoleField.style.display = "none";

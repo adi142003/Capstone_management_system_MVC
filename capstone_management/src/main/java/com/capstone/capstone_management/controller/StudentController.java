@@ -4,7 +4,9 @@ import com.capstone.capstone_management.dto.UserAccountDto;
 import com.capstone.capstone_management.models.Project;
 import com.capstone.capstone_management.models.Student;
 import com.capstone.capstone_management.models.Teacher;
+import com.capstone.capstone_management.models.UserAccount;
 import com.capstone.capstone_management.service.StudentService;
+import com.capstone.capstone_management.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,17 +20,19 @@ import java.util.List;
 @Controller
 public class StudentController {
     private StudentService studentService;
+    private TeacherService teacherService;
 
     @Autowired
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, TeacherService teacherService) {
         this.studentService = studentService;
+        this.teacherService = teacherService;
     }
 
     @GetMapping("/student/teamreg/{srn}")
     public String TeamReg(Model model, @PathVariable String srn) {
         model.addAttribute("project",new Project());
         model.addAttribute("srn",srn);
-        model.addAttribute("teacher",new Teacher());
+        model.addAttribute("teacher",new UserAccount());
         return "team-registration";
     }
 
@@ -38,11 +42,14 @@ public class StudentController {
     }
 
     @PostMapping("/student/teamreg/{srn}")
-    public String TeamRegSubmit(@PathVariable String srn, @ModelAttribute("project") Project project, @ModelAttribute Teacher teacher) {
-        Student student = new Student();
-        student.setSRN(srn);
-        project.setTeacher(teacher);
-        project.addStudent(student);
+    public String TeamRegSubmit(@PathVariable String srn, @ModelAttribute("project") Project project, @ModelAttribute UserAccount teacher) {
+        UserAccount student = new UserAccount();
+        student.setUsn(srn);
+        Student stu = new Student();
+        stu.setUserAccount(student);
+        Teacher te = teacherService.getTeacher(teacher.getUsn());
+        project.setTeacher(te);
+        project.addStudent(stu);
         Project proj = studentService.saveProject(project);
         return "redirect:/project/dashboard/{srn}";
     }

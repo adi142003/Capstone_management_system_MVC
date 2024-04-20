@@ -13,13 +13,14 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Teacher {
     @Id
-    private String TRN;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     @OneToOne
     @JoinColumn(name = "user_id")
-    private UserAccount userAccount;
-    private String ProfessionalRole;
-    private int YearsofExp;
-    private String Domain;
+    private UserAccount useraccount;
+    private String professionalrole;
+    private int yearsofexp;
+    private String domain;
     @ManyToOne
     @JoinColumn(name = "panel_no") // Foreign key column in Teacher table referencing Panel
     private Panel panel;

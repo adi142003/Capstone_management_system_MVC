@@ -18,11 +18,10 @@ import java.util.UUID;
 @Entity
 public class UserAccount {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID UserID;
-    private String Name;
+    private String usn;
+    private String name;
     private String Gender;
-    private String Role;
-    private String Password;
-    private String Department;
+    private String role;
+    private String password;
+    private String department;
 }

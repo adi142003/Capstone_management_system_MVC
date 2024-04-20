@@ -20,11 +20,11 @@
     </div>
     <div id="trnField" style="display: none;">
         <label for="trn">TRN:</label>
-        <input type="text" id="trn" name="trn" th:object="${trn}" th:field="*{trn}">
+        <input type="text" id="trn" name="trn" th:object="${trn}" th:field="*{TRN}">
     </div>
     <div id="srnField" style="display: none;">
         <label for="srn">SRN:</label>
-        <input type="text" id="srn" name="srn" th:object="${trn}" th:field="*{trn}">
+        <input type="text" id="srn" name="srn" th:object="${srn}" th:field="*{SRN}">
     </div>
     <div id="nameField" style="display: none;">
         <label for="name">Name:</label>
@@ -44,15 +44,15 @@
         var srnField = document.getElementById("srnField");
         var nameField = document.getElementById("nameField");
 
-        if (role === "faculty") {
+        if (role === "Teaching Faculty") {
             trnField.style.display = "block";
             srnField.style.display = "none";
             nameField.style.display = "none";
-        } else if (role === "student") {
+        } else if (role === "Student") {
             trnField.style.display = "none";
             srnField.style.display = "block";
             nameField.style.display = "none";
-        } else if (role === "admin") {
+        } else if (role === "Admin") {
             trnField.style.display = "none";
             srnField.style.display = "none";
             nameField.style.display = "block";

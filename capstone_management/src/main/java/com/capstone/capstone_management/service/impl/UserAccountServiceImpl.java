@@ -31,13 +31,19 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Override
     public UserAccount LoginAccount(UserAccount userAccount) {
-       UserAccount user = userAccountRepository.findByUserID(userAccount.getUserID());
+       UserAccount user = userAccountRepository.findByUsn(userAccount.getUsn());
        return user;
+    }
+
+    @Override
+    public String GetPassword(String Name) {
+        UserAccount user = userAccountRepository.findByUsn(Name);
+        return user.getPassword();
     }
 
     private UserAccountDto mapToUserAccountDto(UserAccount userAccount) {
         UserAccountDto userAccountDto = UserAccountDto.builder()
-                .UserID(userAccount.getUserID())
+                .Usn(userAccount.getUsn())
                 .Name(userAccount.getName())
                 .Gender(userAccount.getGender())
                 .Role(userAccount.getRole())

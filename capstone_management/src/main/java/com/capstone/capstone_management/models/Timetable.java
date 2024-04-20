@@ -17,7 +17,7 @@ import java.util.Date;
 public class Timetable {
     @Id
     private int id;
-    private String ReviewPhase;
-    private Date StartDate;
-    private Date EndDate;
+    private String reviewphase;
+    private Date startdate;
+    private Date enddate;
 }
