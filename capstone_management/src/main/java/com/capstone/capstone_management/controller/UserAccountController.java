@@ -53,49 +53,20 @@ public class UserAccountController {
     public String login(Model model) {
         UserAccount userAccount = new UserAccount();
         model.addAttribute("userAccount", userAccount);
-        model.addAttribute("srn",new Student());
-        model.addAttribute("trn",new Teacher());
         return "useraccount-login";
     }
 
     @PostMapping("/useraccount/login")
-    public String loginSubmit(@ModelAttribute("userAccount") UserAccount userAccount, @ModelAttribute Student srn, @ModelAttribute Teacher trn) {
+    public String loginSubmit(@ModelAttribute("userAccount") UserAccount userAccount) {
         String pass;
-        if(Objects.equals(userAccount.getRole(),"Teaching Faculty")) {
-
-            try{
-                pass = teacherService.GetTeacherPassword(trn.getUseraccount().getUsn());
-            }catch (NoSuchElementException e){
-                System.out.println("No Record Found");
-                return "redirect:/useraccount/register";
-            }
-            if(Objects.equals(pass,userAccount.getPassword())) {
-                System.out.println("Success");
-            }
-            else{
-                System.out.println("Fail");
-            }
-        } else if (Objects.equals(userAccount.getRole(),"Student")) {
-            System.out.println("enter");
-            try{
-                 pass = studentService.GetStudentPassword(srn.getUserAccount().getUsn());
-            }catch (NoSuchElementException e){
-                System.out.println("No Record Found");
-                return "redirect:/useraccount/register";
-            }
-            System.out.println("here");
-            if(Objects.equals(pass,userAccount.getPassword())) {
-                System.out.println("Success");
-            }
-            else{
-                System.out.println("Fail");
-            }
-        }else {
             try{
                 pass = userAccountService.GetPassword(userAccount.getUsn());
             }catch (NoSuchElementException e){
                 System.out.println("No Record Found");
                 return "redirect:/useraccount/register";
+            }catch (NullPointerException e){
+                System.out.println("No Record Found");
+                return "redirect:/useraccount/register";
             }
             if(Objects.equals(pass,userAccount.getPassword())) {
                 System.out.println("Success");
@@ -103,7 +74,6 @@ public class UserAccountController {
             else{
                 System.out.println("Fail");
             }
-        }
         return "useraccount-list";
     }
 

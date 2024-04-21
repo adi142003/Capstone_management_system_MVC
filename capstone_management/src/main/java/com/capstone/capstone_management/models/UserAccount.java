@@ -20,7 +20,7 @@ public class UserAccount {
     @Id
     private String usn;
     private String name;
-    private String Gender;
+    private String gender;
     private String role;
     private String password;
     private String department;

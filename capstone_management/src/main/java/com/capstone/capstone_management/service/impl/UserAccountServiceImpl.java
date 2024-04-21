@@ -36,8 +36,8 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    public String GetPassword(String Name) {
-        UserAccount user = userAccountRepository.findByUsn(Name);
+    public String GetPassword(String usn) {
+        UserAccount user = userAccountRepository.findByUsn(usn);
         return user.getPassword();
     }
 
