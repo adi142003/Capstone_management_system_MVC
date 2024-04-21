@@ -41,6 +41,10 @@ public class UserAccountController {
     private StudentService studentService;
     private TeacherService teacherService;
 
+    @GetMapping("")
+    public String welcomePage(){
+        return "welcome-page";
+    }
 
     @GetMapping("/useraccount")
     public String listUserAccount(Model model) {
