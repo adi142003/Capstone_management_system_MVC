@@ -31,7 +31,6 @@ public class AdminController {
     @GetMapping("/useraccount/admin/download-marks")
     public void downloadMarksCSV(HttpServletResponse response) throws IOException {
         // Prepare the CSV file with marks data
-        // Assuming you have a method like `getMarksCSV()` in the AdminService interface
         String csvContent = adminService.getMarksCSV();
 
         // Set the response headers for CSV download
