@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -21,8 +22,17 @@ public class Panel {
     private int panelsize;
 
     @OneToMany(mappedBy = "panel")
-    private List<Teacher> teachers;
+    private List<Teacher> teachers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "panel")
-    private List<Project> projects;
+    public boolean isFull() {
+        return teachers != null && teachers.size() >= 3;
+    }
+
+    public boolean addTeacher(Teacher teacher) {
+        if (!isFull()) {
+            teachers.add(teacher);
+            return true;
+        }
+        return false;
+    }
 }
