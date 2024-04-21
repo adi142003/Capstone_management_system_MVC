@@ -4,42 +4,88 @@
       layout:decorate="~{layout}" lang="en"> lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>team registration</title>
+    <style>
+        
+        body {
+            background-image: url('/assets/team1.jpg');
+            background-size:cover;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: repeat;
+            position: relative;
+          }
+          .make-center{
+            display: flex;
+            justify-content: center;
+          }
+          .translucent{
+            background-color: rgba(255, 255, 255, 0.8);
+            width: fit-content;
+            border-radius: 8px;
+        
+          }
+          form{
+            padding: 23px;
+            width: fit-content;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            
+          }
+          .form-div{
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          label{
+            margin: 3px;
+          }
+ 
+
+    </style>
 </head>
 <body class="d-flex flex-column h-100">
 <section layout:fragment="body" class="py-5">
-<h2>Project Registration Form</h2>
-<form role="form" th:action="@{/student/teamreg/{srn}(srn=${srn})}" method="post" th:object="${project}">
-    <div>
-        <label for="teamId">Team ID:</label>
-        <input type="number" id="TeamID" name="TeamID" th:field="*{teamid}" required>
+    <div class="make-center">
+        <h2 style="text-align: center;padding: 5px;margin-top: 10vh;" class="translucent">Project Registration Form</h2>
     </div>
-    <div>
-        <label for="domain">Domain:</label>
-        <input type="text" id="domain" name="domain" th:field="*{Domain}" required>
+    <div class="make-center">
+
+        <form class="box" role="form" th:action="@{/student/teamreg/{srn}(srn=${srn})}" method="post" th:object="${project}">
+            <div class="form-div">
+                <label for="teamId">Team ID:</label>
+                <input type="number" id="TeamID" name="TeamID" th:field="*{teamid}" required>
+            </div>
+            <div class="form-div">
+                <label for="domain">Domain:</label>
+                <input type="text" id="domain" name="domain" th:field="*{Domain}" required>
+            </div>
+            <div class="form-div">
+                <label for="projectYear">Project Year:</label>
+                <input type="number" id="projectYear" name="projectYear" th:field="*{projectyear}" required>
+            </div>
+            <div class="form-div">
+                <label for="projectTitle">Project Title:</label>
+                <input type="text" id="projectTitle" name="projectTitle" th:field="*{projecttitle}" required>
+            </div>
+            <div class="form-div">
+                <label for="projectStatement">Project Statement:</label>
+                <textarea id="projectStatement" name="projectStatement" th:field="*{projectstatement}" required></textarea>
+            </div>
+            <div class="form-div">
+                <label for="projectDescription">Project Description:</label>
+                <textarea id="projectDescription" name="projectDescription" th:field="*{projectdescription}" required></textarea>
+            </div>
+            <div class="form-div">
+                <label for="teacherTRN">Teacher TRN:</label>
+                <input type="text" id="teacherTRN" name="teacherTRN" th:object="${teacher}" th:field="*{usn}" required>
+            </div>
+            <div class="make-center">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
     </div>
-    <div>
-        <label for="projectYear">Project Year:</label>
-        <input type="number" id="projectYear" name="projectYear" th:field="*{projectyear}" required>
-    </div>
-    <div>
-        <label for="projectTitle">Project Title:</label>
-        <input type="text" id="projectTitle" name="projectTitle" th:field="*{projecttitle}" required>
-    </div>
-    <div>
-        <label for="projectStatement">Project Statement:</label>
-        <textarea id="projectStatement" name="projectStatement" th:field="*{projectstatement}" required></textarea>
-    </div>
-    <div>
-        <label for="projectDescription">Project Description:</label>
-        <textarea id="projectDescription" name="projectDescription" th:field="*{projectdescription}" required></textarea>
-    </div>
-    <div>
-        <label for="teacherTRN">Teacher TRN:</label>
-        <input type="text" id="teacherTRN" name="teacherTRN" th:object="${teacher}" th:field="*{usn}" required>
-    </div>
-    <button type="submit">Submit</button>
-</form>
-</section>
+    </section>
 </body>
 </html>

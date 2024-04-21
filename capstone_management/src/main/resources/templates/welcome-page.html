@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Capstone project management system</title>
+    <style>
+         body {
+            background-image: url('/assets/team.jpg');
+            background-size:cover;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .heading_main {
+            display: flex;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            color: white;
+            /* background-color: rgba(0, 0, 0, 0.5); */
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+            /* background-color: rgba(255, 255, 255, 0.5); */
+            margin: 20vw 60vh;
+            padding: 8px;
+            border-radius: 7px;
+        }
+        h1 {
+            /* margin: 17vw; */
+            border-radius: 5px;
+            text-align: center;
+            
+        }
+    </style>
+</head>
+<body >
+    <div class="heading_main" layout:fragment="body">
+        <h1>Welcome to capstone manager</h1>
+    </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!-- teacher-projects.html -->
+<!DOCTYPE html>
+<html  xmlns:th="http://thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout}" lang="en"> lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Projects</title>
+    <style>
+        table,th,td{
+            border: solid 2px;
+            margin: 2px;
+            padding: 10px;
+        }
+        body {
+            background-image: url('/assets/welcomebg.jpg');
+            background-size:cover;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: repeat;
+            position: relative;
+          }
+          table,h1{
+            width: fit-content;
+            background-color: rgba(255, 255, 255,0.8);
+            margin-top: 10px;
+            padding: 5px;
+          }
+          .make-center{
+            display: flex;
+            justify-content: center;
+          }
+    </style>
+</head>
+<body layout:fragment="body">
+    <div class="make-center">
+        <h1 style="border-radius: 8px;">Projects supervised by Teacher</h1>
+    </div>
+    <div class="make-center">
+        <table>
+            <tr>
+                <th>Project Title</th>
+                <th>Project Year</th>
+                <th>Domain</th>
+                <th>Project Statement</th>
+                <th>Project Description</th>
+            </tr>
+            <tr th:each="project : ${projects}">
+                <td th:text="${project.projecttitle}"></td>
+                <td th:text="${project.projectyear}"></td>
+                <td th:text="${project.domain}"></td>
+                <td th:text="${project.projectstatement}"></td>
+                <td th:text="${project.projectdescription}"></td>
+            </tr>
+        </table>
+    </div>
+    </body>
+    </html>

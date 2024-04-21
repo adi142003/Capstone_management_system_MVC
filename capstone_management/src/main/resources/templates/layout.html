@@ -8,7 +8,7 @@
     <!-- Required meta tags -->
     <style>
         /* Sticky footer styles */
-        html, body {
+        /* html, body {
             height: 100%;
             margin: 0;
             padding: 0;
@@ -24,16 +24,39 @@
 
         .content {
             flex: 1;
-        }
+        } */
 
-        .footer {
+        /* .footer {
             flex-shrink: 0;
-            background-color: #343a40; /* Set your desired background color */
-            color: white; /* Set your desired text color */
+            background-color: #343a40; 
+            color: white; 
             padding: 1rem;
-            margin-top: auto;
+            margin-top:auto;
             width: 100%;
-        }
+        } */
+        html {
+  height: 100%;
+}
+
+body {
+  /* min-height: 10vh; */
+  display: flex;
+  flex-direction: column;
+  background-color: #0b5ed7;
+}
+
+.content {
+  flex: 1;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #343a40;
+  color: white;
+  padding: 1rem;
+}
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -50,8 +73,8 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="useraccount-list">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="about.html">Project</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{projects/year}">Project</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact.html">Professor</a></li>
                 <li class="nav-item"><a class="nav-link" href="pricing.html">Student</a></li>
                 <li class="nav-item"><a class="nav-link" href="faq.html">Schedule</a></li>
@@ -60,7 +83,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
                         <li><a class="dropdown-item" th:href="@{/useraccount/register}">Register</a></li>
                         <li><a class="dropdown-item" th:href="@{/useraccount/login}"></a></li>
-                        <li><a class="dropdown-item" href="blog-post.html">Logout</a></li>
+                        <li><a class="dropdown-item" th:href="@{/}">Logout</a></li>
                     </ul>
                 </li>
             </ul>
