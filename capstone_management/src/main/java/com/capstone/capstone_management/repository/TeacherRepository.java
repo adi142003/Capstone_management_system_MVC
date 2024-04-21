@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface TeacherRepository extends JpaRepository<Teacher, String> {
+public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
     Teacher findByUseraccount(UserAccount trn);
 }

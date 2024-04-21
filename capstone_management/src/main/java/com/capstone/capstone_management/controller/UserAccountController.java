@@ -96,6 +96,8 @@ public class UserAccountController {
             System.out.println("Entering if1");
             if(projectRepository.existsByTeamid(project.getTeamid())){
                 student.setProject(project);
+                Project proj = studentService.findProject(project.getTeamid());
+                student.setProject(proj);
                 studentService.saveStudent(student);
                 return "redirect:/useraccount";
             }

@@ -2,7 +2,6 @@ package com.capstone.capstone_management.service.impl;
 
 import com.capstone.capstone_management.models.Project;
 import com.capstone.capstone_management.models.Student;
-import com.capstone.capstone_management.models.Teacher;
 import com.capstone.capstone_management.models.UserAccount;
 import com.capstone.capstone_management.repository.ProjectRepository;
 import com.capstone.capstone_management.repository.StudentRepository;
@@ -10,6 +9,7 @@ import com.capstone.capstone_management.repository.UserAccountRepository;
 import com.capstone.capstone_management.service.StudentService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,6 +24,10 @@ public class StudentServiceImpl implements StudentService {
         this.projectRepository = projectRepository;
     }
 
+    @Override
+    public Student findStudent(UserAccount userAccount){
+        return studentRepository.findByUserAccount(userAccount);
+    }
 
     @Override
     public Student saveStudent(Student student) {
@@ -40,5 +44,23 @@ public class StudentServiceImpl implements StudentService {
         Optional<Student> t = studentRepository.findById(SRN);
         UserAccount s = t.get().getUserAccount();
         return s.getPassword();
+    }
+
+    @Override
+    public Project findProject(int teamid) {
+        return projectRepository.findByTeamid(teamid);
+    }
+
+    @Override
+    public Project getProject(String srn) {
+        UserAccount userAccount = userAccountRepository.findByUsn(srn);
+        Student stud = studentRepository.findByUserAccount(userAccount);
+        List<Project> projects = projectRepository.findAll();
+        for(Project p : projects){
+            if(p.getStudents().contains(stud)){
+                return p;
+            }
+        }
+        return null;
     }
 }

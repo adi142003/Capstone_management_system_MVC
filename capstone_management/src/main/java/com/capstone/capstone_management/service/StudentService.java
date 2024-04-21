@@ -2,11 +2,18 @@ package com.capstone.capstone_management.service;
 
 import com.capstone.capstone_management.models.Project;
 import com.capstone.capstone_management.models.Student;
+import com.capstone.capstone_management.models.UserAccount;
 import org.springframework.stereotype.Service;
 
 public interface StudentService {
+    Student findStudent(UserAccount userAccount);
+
     Student saveStudent(Student student);
     Project saveProject(Project project);
 
     String GetStudentPassword(String srn);
+
+    Project findProject(int teamid);
+
+    Project getProject(String srn);
 }

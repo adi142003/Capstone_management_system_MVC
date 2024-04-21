@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class StudentController {
@@ -51,7 +52,16 @@ public class StudentController {
         project.setTeacher(te);
         project.addStudent(stu);
         Project proj = studentService.saveProject(project);
+        Student stud = studentService.findStudent(student);
+        stud.setProject(proj);
+        studentService.saveStudent(stud);
         return "redirect:/project/dashboard/{srn}";
     }
 
+    @GetMapping("/student/dashboard/{srn}")
+    public String DashboardSubmit(@PathVariable String srn) {
+        Project proj = studentService.getProject(srn);
+        Optional<Teacher> teach = teacherService.getTeacherbyid(proj.getTeacher());
+    return "layout";
+    }
 }
