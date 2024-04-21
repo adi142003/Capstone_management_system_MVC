@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Panel</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Create Panel</h1>
+    <form th:action="@{/useraccount/admin/create-panel}" th:object="${panel}" method="post">
+        <div class="form-group">
+            <label for="panelno">Panel Number:</label>
+            <input type="number" class="form-control" id="panelno" th:field="*{panelno}" required>
+        </div>
+        <div class="form-group">
+            <label for="panelsize">Panel Size:</label>
+            <input type="number" class="form-control" id="panelsize" th:field="*{panelsize}" required>
+        </div>
+        <div class="form-group">
+            <label for="teachers">Select Teachers:</label>
+            <select multiple class="form-control" id="teachers" th:field="*{teachers}" required>
+                <option th:each="teacher : ${teachers}" th:value="${teacher.id}" th:text="${teacher.useraccount.name}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Panel</button>
+    </form>
+</div>
+</body>
+</html>
