@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Reviews</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Admin Reviews</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Review ID</th>
+            <th>Review Phase</th>
+            <th>Student</th>
+            <th>Teacher</th>
+            <th>Marks</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="review : ${reviews}">
+            <td th:text="${review.reviewid}"></td>
+            <td th:text="${review.reviewphase}"></td>
+            <td th:text="${review.student.userAccount.name}"></td>
+            <td th:text="${review.teacher.useraccount.name}"></td>
+            <td th:text="${review.evalmark1 + review.evalmark2 + review.evalmark3 + review.evalmark4}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="#" th:href="@{/useraccount/admin/download-marks}" class="btn btn-primary">Download Marks CSV</a>
+</div>
+</body>
+</html>
