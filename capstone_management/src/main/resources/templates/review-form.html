@@ -1,0 +1,83 @@
+<!-- review-form.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouttea}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Review Form</title>
+    <style>
+        body {
+            background-image: url('/assets/welcomebg.jpg');
+            background-size:cover;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: repeat;
+            position: relative;
+          }
+          .make-center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          form{
+            background-color: rgba(255, 255, 255, 0.8);
+          }
+    </style>
+</head>
+<body layout:fragment="body">
+    <div class="make-center">
+
+        <h1>Review Form</h1>
+    </div>
+    <form th:action="@{/reviews/submit}" th:object="${review}" method="post">
+        <div class="make-center">
+            <label for="teacherId">Teacher ID:</label>
+            <input type="text" id="teamId" th:field="*{teacher.id}" required>
+        </div>
+
+        <div class="make-center">
+            <label for="studentId">Student ID:</label>
+            <input type="text" id="studentId" th:field="*{student.id}" required>
+        </div>
+
+        <div class="make-center">
+            <label for="reviewPhase">Review Phase:</label>
+            <input type="text" id="reviewPhase" th:field="*{reviewphase}" required>
+        </div>
+
+        <div class="make-center">
+            <label for="evalMark1">Evaluation Mark 1:</label>
+            <input type="number" id="evalMark1" th:field="*{evalmark1}" min="0" max="10" required>
+        </div>
+
+        <div class="make-center">
+            <label for="evalMark2">Evaluation Mark 2:</label>
+            <input type="number" id="evalMark2" th:field="*{evalmark2}" min="0" max="10" required>
+        </div>
+
+        <div class="make-center">
+            <label for="evalMark3">Evaluation Mark 3:</label>
+            <input type="number" id="evalMark3" th:field="*{evalmark3}" min="0" max="10" required>
+        </div>
+
+        <div class="make-center">
+            <label for="evalMark4">Evaluation Mark 4:</label>
+            <input type="number" id="evalMark4" th:field="*{evalmark4}" min="0" max="10" required>
+        </div>
+
+        <div class="make-center">
+            <label for="reviewComment">Review Comment:</label>
+            <textarea id="reviewComment" th:field="*{reviewcomment}" rows="4"></textarea>
+        </div>
+
+        <div class="make-center">
+            <button type="submit" >Submit Review</button>
+        </div>
+        <br>
+        <div class="make-center">
+            <button><a th:href="@{/}">go to home</a></button>
+        </div>
+    </form>
+</body>
+</html>

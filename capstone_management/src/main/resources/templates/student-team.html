@@ -1,0 +1,54 @@
+<!-- student-team.html -->
+<!DOCTYPE html>
+<html  xmlns:th="http://thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layoutstu}" lang="en">
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <title>Student Team</title>
+    <style>
+        table,th,td{
+            border: solid 2px;
+            margin: 2px;
+            padding: 10px;
+        }
+        body {
+            background-image: url('/assets/welcomebg.jpg');
+            background-size:cover;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: repeat;
+            position: relative;
+          }
+          table,h1{
+            width: fit-content;
+            background-color: rgba(255, 255, 255,0.8);
+            margin-top: 10px;
+            padding: 5px;
+          }
+          .make-center{
+            display: flex;
+            justify-content: center;
+          }
+    </style>
+</head>
+<body layout:fragment="body">
+    
+    <div class="make-center">
+
+        <h1>My Team</h1>
+    </div>
+    <div class="make-center">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>CGPA</th>
+            </tr>
+            <tr th:each="student : ${teamMembers}">
+                <td th:text="${student.userAccount.name}"></td>
+                <td th:text="${student.cgpa}"></td>
+            </tr>
+        </table>
+    </div>
+    </body>
+</html>
