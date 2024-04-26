@@ -1,0 +1,239 @@
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Capstone Manager</title>
+  <style>
+    /* Sticky footer styles */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #0b5ed7;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      background-color: #0a53be;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      flex-shrink: 0;
+      background-color: #343a40;
+      color: white;
+      padding: 1rem;
+      margin-top: auto;
+      width: 100%;
+    }
+
+    /* Form styles */
+    form {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: calc(100% - 22px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+      width: calc(100% - 22px);
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <!-- Bootstrap icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link th:href="@{/css/styles.css}" rel="stylesheet" />
+  <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Capstone Manager</title>
+</head>
+<body>
+<div class="wrapper">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container px-5">
+      <a class="navbar-brand" href="">Capstone Manager</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" th:href="@{/welcome}">Home</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+              <li><a class="dropdown-item" th:href="@{/useraccount/register}">Register</a></li>
+              <li><a class="dropdown-item" th:href="@{/useraccount/login}">Login</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <h2>Registration Form</h2>
+    <form role="form" th:action="@{/useraccount/register}" method="post" th:object="${userAccount}">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required>
+      </div>
+      <div class="form-group">
+        <label for="gender">Gender:</label>
+        <select class="form-control" id="gender" name="gender" th:field="*{gender}" required>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="role">Role:</label>
+        <div class="dropdown-arrow">
+          <select class="form-control" id="role" name="role" th:field="*{role}" required
+                  onchange="updateFields()">
+            <option value="">Select Role</option>
+            <option value="Student">Student</option>
+            <option value="Admin">Admin</option>
+            <option value="Teaching Faculty">Teaching Faculty</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" name="password" th:field="*{password}"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="department">Department:</label>
+        <div class="dropdown-arrow">
+          <select class="form-control" id="department" name="department" th:field="*{department}"
+                  required>
+            <option value="CSE">CSE</option>
+            <option value="ECE">ECE</option>
+            <option value="IT Support">IT Support</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label id="dynamicLabel" for="identification">Identification:</label>
+        <input type="text" class="form-control" id="identification" name="identification" th:object="${userAccount}"
+               th:field="*{usn}">
+      </div>
+      <div class="form-group" id="cgpaField" style="display: none;">
+        <label for="cgpa">CGPA:</label>
+        <input type="number" step="0.01" class="form-control" id="cgpa" name="cgpa"
+               th:object="${student}" th:field="*{cgpa}">
+      </div>
+      <div class="form-group" id="teamIdField" style="display: none;">
+        <label for="teamId">TeamID:</label>
+        <input type="text" class="form-control" id="teamId" name="teamId" th:object="${project}"
+               th:field="*{teamid}">
+      </div>
+      <div class="form-group" id="professionalRoleField" style="display: none;">
+        <label for="professionalRole">Professional Role:</label>
+        <input type="text" class="form-control" id="professionalRole" name="professionalrole" th:object="${teacher}"
+               th:field="*{professionalrole}">
+      </div>
+      <div class="form-group" id="yearsOfExperienceField" style="display: none;">
+        <label for="yearsOfExperience">Years of Experience:</label>
+        <input type="number" class="form-control" id="yearsOfExperience" name="yearsOfexperience" th:object="${teacher}"
+               th:field="*{yearsofexp}">
+      </div>
+      <div class="form-group" id="domainField" style="display: none;">
+        <label for="domain">Domain:</label>
+        <input type="text" class="form-control" id="domain" name="domain" th:object="${teacher}"
+               th:field="*{domain}">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    function updateFields() {
+      var cgpaField = document.getElementById("cgpaField");
+      var teamIdField = document.getElementById("teamIdField");
+      var professionalRoleField = document.getElementById("professionalRoleField");
+      var yearsOfExperienceField = document.getElementById("yearsOfExperienceField");
+      var domainField = document.getElementById("domainField");
+
+      var role = document.getElementById("role").value;
+      var dynamicLabel = document.getElementById("dynamicLabel");
+
+      if (role === "Student") {
+        dynamicLabel.textContent = "SRN:";
+      } else if (role === "Teaching Faculty") {
+        dynamicLabel.textContent = "TRN:";
+      } else if (role === "Admin") {
+        dynamicLabel.textContent = "ERN:";
+      }
+
+      if (role === "Student") {
+        cgpaField.style.display = "block";
+        teamIdField.style.display = "block";
+        professionalRoleField.style.display = "none";
+        yearsOfExperienceField.style.display = "none";
+        domainField.style.display = "none";
+      } else if (role === "Teaching Faculty") {
+        cgpaField.style.display = "none";
+        teamIdField.style.display = "none";
+        professionalRoleField.style.display = "block";
+        yearsOfExperienceField.style.display = "block";
+        domainField.style.display = "block";
+      } else if (role === "Admin") {
+        cgpaField.style.display = "none";
+        teamIdField.style.display = "none";
+        professionalRoleField.style.display = "none";
+        yearsOfExperienceField.style.display = "none";
+        domainField.style.display = "none";
+      } else {
+        cgpaField.style.display = "none";
+        teamIdField.style.display = "none";
+        professionalRoleField.style.display = "none";
+        yearsOfExperienceField.style.display = "none";
+        domainField.style.display = "none";
+      }
+    }
+  </script>
+
+  <footer class="footer">
+    <div class="container px-5">
+      <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+        <div class="col-auto"><div class="small m-0">Capstone Management System 2024</div></div>
+      </div>
+    </div>
+  </footer>
+  <!-- Bootstrap core JS-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Core theme JS-->
+  <script src="scripts.js"></script>
+</div>
+</body>
+a
